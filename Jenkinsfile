@@ -7,24 +7,23 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/your-repo/project.git', branch: 'main'
-            }
-        }
+      stage('Checkout') {
+    steps {
+        git url: 'https://github.com/sanu15/sample_maven_project.git', branch: 'main'
+    }
+}
 
-        stage('Build') {
-            steps {
-                sh 'javac -d out src/*.java'
-            }
-        }
+      stage('Build') {
+    steps {
+        sh 'mvn clean compile'
+    }
+}
 
-        stage('Test') {
-            steps {
-                sh 'java -cp out org.junit.runner.JUnitCore MyTestClass'
-            }
-        }
-
+stage('Test') {
+    steps {
+        sh 'mvn test'
+    }
+}
         stage('Archive') {
             steps {
                 archiveArtifacts artifacts: 'out/**/*.class', fingerprint: true
