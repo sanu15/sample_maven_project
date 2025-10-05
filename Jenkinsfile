@@ -7,26 +7,27 @@ pipeline {
     }
 
     stages {
-      stage('Checkout') {
-    steps {
-        git url: 'https://github.com/sanu15/sample_maven_project.git', branch: 'main'
-    }
-}
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/sanu15/sample_maven_project.git', branch: 'main'
+            }
+        }
 
-      stage('Build') {
-    steps {
-        sh 'mvn clean compile'
-    }
-}
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
 
-stage('Test') {
-    steps {
-        sh 'mvn test'
-    }
-}
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
         stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'out/**/*.class', fingerprint: true
+                archiveArtifacts artifacts: 'target/**/*.class', fingerprint: true
             }
         }
 
