@@ -2,26 +2,27 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = '/usr/lib/jvm/java-11-openjdk'
-        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+        // Adjust JAVA_HOME if needed for your Windows system
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-11'
+        PATH = "${JAVA_HOME}\\bin;${env.PATH}"
     }
 
     stages {
         stage('Checkout') {
             steps {
-             git url: 'https://github.com/sanu15/sample_maven_project.git', branch: 'master'
+                git url: 'https://github.com/sanu15/sample_maven_project.git', branch: 'master'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
